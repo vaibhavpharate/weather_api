@@ -9,13 +9,13 @@ class Plans(models.Model):
     plan_type = models.CharField(max_length=20,unique=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
-    @classmethod
-    def get_default_name(cls):
-        plan, created = cls.objects.get_or_create(
-            plan_type='Basic', 
+    # @classmethod
+    # def get_default_name(cls):
+    #     plan, created = cls.objects.get_or_create(
+    #         plan_type='Basic', 
            
-        )
-        return plan.plan_type
+    #     )
+    #     return plan.plan_type
 
     def __str__(self) -> str:
         return self.plan_type
@@ -37,7 +37,7 @@ class Clients(AbstractUser):
     date_updated = models.DateTimeField(auto_now=True)
     logos = models.ImageField(upload_to='client_logos/',default="None")
     
-    plans = models.ForeignKey(Plans,on_delete=models.CASCADE,default=Plans.get_default_name,to_field='plan_type',related_name='client_plans')
+    # plans = models.ForeignKey(Plans,on_delete=models.CASCADE,default=Plans.get_default_name,to_field='plan_type',related_name='client_plans')
 
     objects = UserManager()
     
