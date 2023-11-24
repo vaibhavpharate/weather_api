@@ -100,8 +100,8 @@ DATABASES = {
         },
         'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': 'admin123',
-        'HOST': 'localhost',
+        'PASSWORD': 'RkawhXAI88IjoLfaG5fN',
+        'HOST': 'tensordb.cc2d2xky8wfs.us-east-1.rds.amazonaws.com:5432',
         'PORT': '5432',
     },
     "site_configs": {
