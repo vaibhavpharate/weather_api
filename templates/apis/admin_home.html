@@ -1,0 +1,155 @@
+{% extends "apis/base.html" %}
+{% load crispy_forms_tags %}
+{% block main_block %}
+{% include "apis/components/navbar.html" %}
+
+<div class='container-fluid bg-secondary py-2'>
+    <div class='row mx-0 align-items-center justify-content-center'>
+        <div class='col-10 col-md-3'>
+            <div class='card'>
+                <div class='card-header'>
+                    <h3 class='text-center mb-0'>
+                        Total Clients
+                    </h3>
+                </div>
+                <div class='card-body'>
+                    <h2 class='text-center mb-0'>
+                        {{clients.count}}
+                    </h2>
+                    
+                </div>
+            </div>
+        </div>
+        <div class='col-10 col-md-3'>
+            <div class='card'>
+                <div class='card-header'>
+                    <h3 class='text-center mb-0'>
+                        Total Sites
+                    </h3>
+                </div>
+                <div class='card-body'>
+                    <h2 class='text-center mb-0'>
+                        {{sites.count}}
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class='col-10 col-md-3'>
+            <div class='card'>
+                <div class='card-header'>
+                    <h3 class='text-center mb-0'>
+                        Total Plans
+                    </h3>
+                </div>
+                <div class='card-body'>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class='container-fluid py-3 px-3'>
+    <div class='row'>
+        <div class='col-5'>
+            <div class='row justify-content-between'>
+                <h3 class='col'>Client Details</h3>
+                <div class='col text-end'>
+                    <a href="{% url "create_client" %}" class='btn btn-primary'>Create Client</a>
+                </div>
+            </div>
+            
+            <table class='table table-striped' id='clients'>
+                <thead>
+                    <tr>
+                        <th>Client Name</th>
+                        <th>Client Status</th>
+                        <th>Client Plan</th>
+                        <th class='text-center'>Update Client Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for client in clients  %}
+                        <tr>
+                            <td>
+                                {{ client.username }}
+                                
+                            </td>
+                            <td>
+                                {% if client.is_active %} Active {% else %} Inactive {% endif %}
+                            </td>
+                            <td>
+                                {{ client.plans_id }}
+                            </td>
+                            <td class='text-center'>
+                                <a href="" class='btn btn-warning'>Update</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+        </div>
+        <div class='col-7'>
+            <div class='row'>
+                <h3 class='col'>Site Details</h3>
+                <div class='col text-end'>
+                    <a href="" class='btn btn-primary'>Create Site</a>
+                </div>
+            </div>
+            <div class='py-3'>
+                <table class='table table-striped' id='sites'>
+                    <thead>
+                        <tr>
+                            <th>Site Name</th>
+                            <th>Client Name</th>
+                            <th>Site Type</th>
+                            <th>Site Lat</th>
+                            <th>Site Lon</th>
+                            <th class='text-center'>Site Verified</th>
+                            <th>Site Status</th>
+                            <th>Update</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for site in sites %}
+                            <tr>
+                                <td>
+                                    {{ site.site_name }}
+                                </td>
+                                <td>
+                                    {{site.client_name_id}}
+                                </td>
+                                <td>
+                                    {{ site.type }}
+                                </td>
+                                <td>
+                                    {{ site.latitude }}
+                                </td>
+                                <td>
+                                    {{ site.longitude }}
+                                </td>
+                                <td class='text-center'>
+                                    <input type="checkbox" {% if site.verified == "VERIFIED" %} checked {% endif %}>
+                                </td>
+                                <td>
+                                    {{site.site_status}}
+                                </td>
+                                <td>
+                                    <button class='btn btn-warning'>Update Site</button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<script>
+    let table1 = new DataTable('#clients');
+    let table2 = new DataTable('#sites');
+
+</script>
+
+{% endblock %}

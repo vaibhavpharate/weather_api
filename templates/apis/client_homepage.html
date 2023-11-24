@@ -1,0 +1,123 @@
+{% extends "apis/base.html" %}
+{% block main_block %}
+{% include "apis/components/navbar.html" %}
+<div class='container-fluid px-0'>
+    <div class='p-4 bg-secondary'>
+        <div class='container-fluid'>
+            <div class='row justify-content-center'>
+                <div class='col-3'>
+                    <div class='card'>
+                        <div class='card-header'>
+                            <h3 class='mb-0 text-center'>
+                                Total Sites
+                            </h3>
+                        </div>
+                        <div class='card-body'>
+                            <h1 class='mb-0 text-center'>
+                                {{ sites.count }}
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-3'>
+                    <div class='card'>
+                        <div class='card-header'>
+                            <h3 class='mb-0 text-center'>
+                                Plan Type
+                            </h3>
+                        </div>
+                        <div class='card-body'>
+                            <h1 class='mb-0 text-center'>
+                                {{ user.plans_id }}
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-4'>
+                    <div class='card'>
+                        <div class='card-header'>
+                            <h3 class='mb-0 text-center'>
+                                Last Updated
+                            </h3>
+                        </div>
+                        <div class='card-body'>
+                            <h1 class='mb-0 text-center' id='last_updated'>
+                                
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='container-fluid p-4'>
+        <div class='row align-items-center'>
+            <div class='col-5'>
+                <h3>Sites Data</h3>
+                <table class='table table-striped'>
+                    <thead>
+                        <tr>
+                            <th>Site Name</th>
+                            <th>State</th>
+                            <th>Latitude</th>
+                            <th>Longitude</th>
+                            <th>Site Status</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for site in sites %}
+                            <tr>
+                                <td>{{ site.site_name }}</td>
+                                <td>{{ site.state }}</td>
+                                <td>{{ site.latitude }}</td>
+                                <td>{{ site.longitude }}</td>
+                                <td>{{ site.site_status }}</td>
+                                <td>{{ site.type }}</td>
+                                
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class='col-7'>
+                <h3 class='mb-3'>
+                    API Data
+                </h3>
+                <div class='card'>
+                    <div class='card-header'>
+                        <h3 class='mb-0'>Download Sites Data</h3>
+                    </div>
+                    <div class='card-body'>
+                        <div class='row justify-content-around'>
+                        
+                            <p class='col'>Download The Sites Data for today. Date Generated for: <strong id='target_span'></strong></p>
+                            <div class='col text-end'>
+                                <a href="{{ user.plans_id | lower }}" class='btn btn-primary'>Generate Data</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    $(document).ready(function(){
+    let now_date = new Date();    
+    let target_element = $('#last_updated');
+    let target_span = $('#target_span');
+    
+    let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    var today  = new Date();
+    target_element.html(now_date.toLocaleDateString('en-US',options));
+    target_span.html(now_date.toLocaleDateString('en-US',options));
+
+    }
+    )
+</script>
+{% endblock  %}
